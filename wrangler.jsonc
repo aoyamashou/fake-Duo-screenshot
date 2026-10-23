@@ -1,0 +1,6 @@
+{
+  "name": "fake-duo-screenshot",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./public" },
+  "routes": [{ "pattern": "iphoneduo-screenshot-maker.ryou.im", "custom_domain": true }]
+}
