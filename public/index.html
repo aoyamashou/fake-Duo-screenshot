@@ -29,6 +29,11 @@
   .guide .note { font-size:13px; opacity:.6; margin:0; }
   .foot { text-align:center; font-size:12px; opacity:.6; margin:0 0 8px; }
   .foot a { color:var(--accent); }
+  .guide ul li { display:flex; align-items:flex-start; gap:10px; }
+  .guide .txt { flex:1; }
+  button.copy { width:auto; flex:none; padding:4px 10px; border-radius:8px; background:var(--card);
+    color:var(--fg); font-size:12px; font-weight:500; border:1px solid rgba(128,128,128,.35); opacity:.8; }
+  button.copy.ok { color:var(--accent); border-color:var(--accent); opacity:1; }
 </style>
 </head>
 <body>
@@ -52,11 +57,11 @@
       <li>发布朋友圈或你喜欢的 SNS，可参考以下文案：</li>
     </ol>
     <ul>
-      <li>“什么垃圾适配？我看苹果要完蛋了”</li>
-      <li>“现在的 iPhone Duo 就像刚交房的毛坯大平层，除了大，连地砖都没铺全。”</li>
-      <li>“合上是高科技，展开是半成品，高端硬件与糊弄软件的史诗级碰撞。”</li>
-      <li>“外表科技未来，一开微信梦回 iPhone 4 时代。”</li>
-      <li>“展开后可视面积比小屏机还小，买了个‘随身黑边展示器’。”</li>
+      <li><span class="txt">什么垃圾适配？我看苹果要完蛋了</span><button type="button" class="copy" aria-label="复制">复制</button></li>
+      <li><span class="txt">现在的 iPhone Duo 就像刚交房的毛坯大平层，除了大，连地砖都没铺全。</span><button type="button" class="copy" aria-label="复制">复制</button></li>
+      <li><span class="txt">合上是高科技，展开是半成品，高端硬件与糊弄软件的史诗级碰撞。</span><button type="button" class="copy" aria-label="复制">复制</button></li>
+      <li><span class="txt">外表科技未来，一开微信梦回 iPhone 4 时代。</span><button type="button" class="copy" aria-label="复制">复制</button></li>
+      <li><span class="txt">展开后可视面积比小屏机还小，买了个随身黑边展示器。</span><button type="button" class="copy" aria-label="复制">复制</button></li>
     </ul>
     <p class="note">或发给您的 AI 自由发挥。</p>
     <h2 class="anti">反装逼指南</h2>
@@ -88,6 +93,24 @@ save.addEventListener("click", () => {
   a.href = blobUrl;
   a.download = "iphone-duo-screenshot.png";
   a.click();
+});
+document.querySelectorAll("button.copy").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const text = btn.parentElement.querySelector(".txt").textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const t = document.createElement("textarea");
+      t.value = text;
+      document.body.append(t);
+      t.select();
+      document.execCommand("copy");
+      t.remove();
+    }
+    btn.textContent = "已复制";
+    btn.classList.add("ok");
+    setTimeout(() => { btn.textContent = "复制"; btn.classList.remove("ok"); }, 1500);
+  });
 });
 </script>
 </body>
